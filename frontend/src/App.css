@@ -4,5 +4,11 @@
     width: 100%;
     align-items: center;
     justify-content: center;
-    background: rgb(66, 66, 66);
+    background: rgba(173, 173, 173, 0.836);
+}
+
+.loginFormContainer {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
 }

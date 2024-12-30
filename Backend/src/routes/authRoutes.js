@@ -11,6 +11,7 @@ const verify2FA = require('../controllers/authController')
 const reset2FA = require('../controllers/authController')
 require('../config/passportConfig')
 const userValidation = require('../validation/userValidation')
+const User = require('../modals/user');
 
 //Registration Router
 router.post("/registration", async (req, res) => {
@@ -25,6 +26,7 @@ router.post("/registration", async (req, res) => {
         await User.create(newUser)
         return res.status(201).json({ message: 'user created successfully..!' });
     } catch (error) {
+        console.log("Error in registration", error);
         res.status(500).send({ error: "Error in registering", message: error })
     }
 })
@@ -32,9 +34,12 @@ router.post("/registration", async (req, res) => {
 //Login Router
 router.post("/login", passport.authenticate('local'), (req, res) => {
     const { user } = req;
+    if (!user) return res.status(404).json({message: "user not found"});
+
     return res.status(200).json({
         message: "user loged successfully..!",
-        username: user.username
+        username: user.username,
+        isMfaActive: user.isMfaActive,
     })
 })
 

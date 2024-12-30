@@ -1,13 +1,13 @@
 import api from "./api";
 
-export const register = async (username, password) => {
+const register = async (username, password) => {
     return await api.post("/auth/registration", {
         username,
         password,
     });
 };
 
-export const login = async (username, password) => {
+const login = async (username, password) => {
     return await api.post("/auth/login", {
         username,
         password,
@@ -17,14 +17,14 @@ export const login = async (username, password) => {
         });
 };
 
-export const authStatus = async () => {
+const authStatus = async () => {
     return await api.get("/auth/status", {
         withCredentials: true,
     }
     )
 }
 
-export const logout = async  () => {
+const logout = async  () => {
     return await api.post("/auth/logout", 
         { },
         {
@@ -33,7 +33,7 @@ export const logout = async  () => {
     )
 }
 
-export const setup2FA = async () => {
+const setup2FA = async () => {
     return await api.post("/auth/2FA/setup",
         {},
         {
@@ -42,7 +42,7 @@ export const setup2FA = async () => {
     )
 }
 
-export const verify2FA = async (token) => {
+const verify2FA = async (token) => {
     return await api.post("/auth/2FA/verify", 
         {token},
         {
@@ -51,7 +51,7 @@ export const verify2FA = async (token) => {
     )
 }
 
-export const reset2FA = async () => {
+const reset2FA = async () => {
     return await api.post("/auth/2FA/reset", 
         {},
         {
@@ -59,3 +59,15 @@ export const reset2FA = async () => {
         }
     )
 }
+
+const authServices = {
+    register,
+    login,
+    authStatus,
+    logout,
+    setup2FA,
+    verify2FA,
+    reset2FA
+}
+
+export default authServices
